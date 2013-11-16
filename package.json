@@ -6,7 +6,8 @@
   "dependencies": {
     "gm": "~1.13.3",
     "express": "~3.4.4",
-    "temp": "~0.6.0"
+    "temp": "~0.6.0",
+    "coffee-script": "~1.6.3"
   },
   "repository": {
     "type": "git",
