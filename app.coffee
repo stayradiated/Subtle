@@ -4,7 +4,7 @@ gm = require './gm'
 
 fs = require 'fs'
 
-server = new Server(process.env.port or 5000)
+server = new Server(process.env.PORT or 5000)
 
 server.on 'upload', (req, res) ->
 
