@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>SubtleDesktop</title>
+</head>
+<body>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+
+    <div>
+      <label for="input-desktop">Desktop Image</label>
+      <input id="input-desktop" type="file" name="desktop">
+    </div>
+
+    <div>
+      <label for="input-pattern">Pattern</label>
+      <input id="input-pattern" type="file" name="pattern">
+    </div>
+
+    <div>
+      <p>Filter</p>
+      <label for="input-filter-multiply">Darken</label>
+      <input checked id="input-filter-multiply" type="radio" name="filter" value="Multiply">
+      <label for="input-filter-screen">Lighten</label>
+      <input id="input-filter-screen" type="radio" name="filter" value="Divide">
+    </div>
+
+    <div>
+      <label for="input-invert">Invert Pattern</label>
+      <input id="input-invert" type="checkbox" name="invert">
+    </div>
+
+    <button>Make SubtleDesktop</button>
+  </form>
+</body>
+</html>
