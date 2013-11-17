@@ -1,0 +1,21 @@
+{
+  "name": "SubtleDesktop",
+  "version": "0.0.1",
+  "description": "SimpleDesktops meets SubtlePatterns",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stayradiated/Subtle.git"
+  },
+  "author": "George Czabania",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/stayradiated/Subtle/issues"
+  },
+  "dependencies": {
+    "coffee-scrunch": "~0.1.4"
+  }
+}

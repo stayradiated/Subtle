@@ -1,0 +1,6 @@
+aside {
+
+  @include pos($header-height, 0, 0, auto);
+  width: $sidebar-width;
+
+}

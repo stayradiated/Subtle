@@ -4,6 +4,12 @@ class Canvas
   constructor: (@el) ->
     @ctx = @el.getContext '2d'
 
+  setOpacity: (opacity=1) =>
+    @ctx.globalAlpha = opacity
+
+  setBlendMode: (blendmode='source-over') =>
+    @ctx.globalCompositeOperation = blendmode
+
   ###*
    * Tile an image across the canvas
    - image (Image) : The image to tile
@@ -12,6 +18,8 @@ class Canvas
 
   tileImage: (image) =>
     pattern = @ctx.createPattern image, 'repeat'
+    @setOpacity 0.5
+    @setBlendMode 'multiply'
     @ctx.fillStyle = pattern
     @ctx.fillRect 0, 0, @el.width, @el.height
 
@@ -59,6 +67,8 @@ class Canvas
     args[3] = Math.round dest.width  * ratio.min
     args[4] = Math.round dest.height * ratio.min
 
+    @setBlendMode()
+    @setOpacity()
     @ctx.drawImage(args...)
 
 module.exports = Canvas

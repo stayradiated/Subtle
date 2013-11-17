@@ -33,27 +33,84 @@
     [
       {
         /*
-          /Volumes/Home/Projects/Subtle/source/test.coffee
+          /home/stayrad/Projects/subtledesktop/source/test.coffee
         */
 
-        './canvas': 1
+        './imagefile': 1,
+        './canvas': 2
       }, function(require, module, exports) {
-        var Canvas;
+        var Canvas, ImageFile;
+        ImageFile = require('./imagefile');
         Canvas = require('./canvas');
         return document.addEventListener('DOMContentLoaded', function() {
-          var canvas, image;
+          var canvas, fileInput;
           canvas = new Canvas(document.getElementById('wallpaper'));
-          image = new Image();
-          image.onload = function() {
+          fileInput = {
+            desktop: new ImageFile(document.getElementById('input-file-desktop')),
+            pattern: new ImageFile(document.getElementById('input-file-pattern'))
+          };
+          fileInput.desktop.onload = function(image) {
+            return canvas.scaleImage(image, {
+              width: 1920,
+              height: 1080
+            });
+          };
+          return fileInput.pattern.onload = function(image) {
             return canvas.tileImage(image);
           };
-          return image.src = 'tile.png';
         });
       }
     ], [
       {
         /*
-          /Volumes/Home/Projects/Subtle/source/canvas.coffee
+          /home/stayrad/Projects/subtledesktop/source/imagefile.coffee
+        */
+
+      }, function(require, module, exports) {
+        var ImageFile;
+        ImageFile = (function() {
+          function ImageFile(el) {
+            var _this = this;
+            this.el = el;
+            this.read = __bind(this.read, this);
+            this.onload = __bind(this.onload, this);
+            this.el.addEventListener('change', this.read);
+            this.reader = new FileReader();
+            this.reader.onload = function(event) {
+              var image;
+              image = new Image();
+              image.onload = function() {
+                return _this.onload(image);
+              };
+              image.src = _this.reader.result;
+              return image;
+            };
+          }
+
+          ImageFile.prototype.onload = function() {
+            throw new Error('ImageFile.onload method has not been overridden');
+          };
+
+          ImageFile.prototype.read = function() {
+            var file, _i, _len, _ref, _results;
+            _ref = this.el.files;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              file = _ref[_i];
+              _results.push(this.reader.readAsDataURL(file));
+            }
+            return _results;
+          };
+
+          return ImageFile;
+
+        })();
+        return module.exports = ImageFile;
+      }
+    ], [
+      {
+        /*
+          /home/stayrad/Projects/subtledesktop/source/canvas.coffee
         */
 
       }, function(require, module, exports) {
@@ -63,8 +120,24 @@
             this.el = el;
             this.scaleImage = __bind(this.scaleImage, this);
             this.tileImage = __bind(this.tileImage, this);
+            this.setBlendMode = __bind(this.setBlendMode, this);
+            this.setOpacity = __bind(this.setOpacity, this);
             this.ctx = this.el.getContext('2d');
           }
+
+          Canvas.prototype.setOpacity = function(opacity) {
+            if (opacity == null) {
+              opacity = 1;
+            }
+            return this.ctx.globalAlpha = opacity;
+          };
+
+          Canvas.prototype.setBlendMode = function(blendmode) {
+            if (blendmode == null) {
+              blendmode = 'source-over';
+            }
+            return this.ctx.globalCompositeOperation = blendmode;
+          };
 
           /**
            * Tile an image across the canvas
@@ -76,6 +149,8 @@
           Canvas.prototype.tileImage = function(image) {
             var pattern;
             pattern = this.ctx.createPattern(image, 'repeat');
+            this.setOpacity(0.5);
+            this.setBlendMode('multiply');
             this.ctx.fillStyle = pattern;
             return this.ctx.fillRect(0, 0, this.el.width, this.el.height);
           };
@@ -112,6 +187,8 @@
             args[2] = Math.round(padding.height);
             args[3] = Math.round(dest.width * ratio.min);
             args[4] = Math.round(dest.height * ratio.min);
+            this.setBlendMode();
+            this.setOpacity();
             return (_ref = this.ctx).drawImage.apply(_ref, args);
           };
 
