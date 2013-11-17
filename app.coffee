@@ -9,8 +9,8 @@ server = new Server(process.env.PORT or 5000)
 server.on 'upload', (req, res) ->
 
   options =
-    width: 1920
-    height: 1080
+    width: parseInt req.body.width, 10
+    height: parseInt req.body.height, 10
     image: req.files.desktop.path
     pattern: req.files.pattern.path
     type: req.body.filter
