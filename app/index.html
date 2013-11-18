@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Subtle Desktops</title>
+  <link href="style.css" rel="stylesheet">
+  <script src="app.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>Subtle <span>Desktops</span></h1>
+    <input id="input-file-desktop" type="file">
+    <input id="input-file-pattern" type="file">
+    <input id="input-range-opacity" min="0" max="100" value="100" type="range">
+    <select id="input-select-blendmode">
+      <option selected value="multiply">Multiply</option>
+      <option value="screen">Screen</option>
+      <option value="source-over">---</option>
+      <option value="overlay">Overlay</option>
+      <option value="source-over">---</option>
+      <option value="darken">Darken</option>
+      <option value="lighten">Lighten</option>
+      <option value="source-over">---</option>
+      <option value="color-dodge">Color Dodge</option>
+      <option value="color-burn">Color Burn</option>
+      <option value="source-over">---</option>
+      <option value="hard-light">Hard Light</option>
+      <option value="soft-light">Soft Light</option>
+      <option value="source-over">---</option>
+      <option value="exclusion">Exclusion</option>
+      <option value="difference">Difference</option>
+      <option value="source-over">---</option>
+      <option value="hue">Hue</option>
+      <option value="saturation">Saturation</option>
+      <option value="color">Color</option>
+      <option value="luminosity">Luminosity</option>
+    </select>
+    <button id="output-download">Download</button>
+  </header>
+
+  <main role="main">
+
+    <canvas id="wallpaper"></canvas>
+
+  </main>
+
+  <aside>
+
+    <div class="patterns"> </div>
+
+  </aside>
+
+
+</body>
+</html>

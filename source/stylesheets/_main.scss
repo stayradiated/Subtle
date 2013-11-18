@@ -3,4 +3,8 @@ main {
   @include pos($header-height, $sidebar-width, 0, 0);
   overflow: scroll;
 
+  canvas {
+    display: block;
+  }
+
 }

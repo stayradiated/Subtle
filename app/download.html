@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Download Image</title>
+  <script>
+    window.addEventListener('message', function (msg) {
+      var img = new Image();
+      img.src = msg.data;
+      document.body.appendChild(img);
+    });
+  </script>
+</head>
+<body>
+  Right click the image and choose 'save image as'.
+</body>
+</html>

@@ -16,6 +16,13 @@
     "url": "https://github.com/stayradiated/Subtle/issues"
   },
   "dependencies": {
-    "coffee-scrunch": "~0.1.4"
+    "base": "git://github.com/stayradiated/base.git#master",
+    "jqueryify": "~2.0.3"
+  },
+  "devDependencies": {
+    "coffee-scrunch" : "~0.1.4",
+    "uglify-js"      : "~2.4.0",
+    "node-static"    : "~0.7.1",
+    "node-sass"      : "~0.7.0"
   }
 }

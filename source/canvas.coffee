@@ -1,8 +1,40 @@
 
+event = require './event'
+
 class Canvas
 
   constructor: (@el) ->
     @ctx = @el.getContext '2d'
+    @opacity = 1
+    @blendmode = 'multiply'
+
+    event.on 'change:opacity', (@opacity) =>
+      @redraw()
+
+    event.on 'change:blendmode', (@blendmode) =>
+      console.log @blendmode
+      @redraw()
+
+
+  getSettings: =>
+    [@opacity, @blendmode]
+
+  export: =>
+    @el.toDataURL()
+
+  redraw: =>
+
+    if @image?
+      @scaleImage @image,
+        width: screen.width
+        height: screen.height
+
+    if @pattern?
+      @tileImage @pattern
+
+  setSize: (screen) =>
+    @el.width = screen.width
+    @el.height = screen.height
 
   setOpacity: (opacity=1) =>
     @ctx.globalAlpha = opacity
@@ -16,10 +48,10 @@ class Canvas
    > void
   ###
 
-  tileImage: (image) =>
-    pattern = @ctx.createPattern image, 'repeat'
-    @setOpacity 0.5
-    @setBlendMode 'multiply'
+  tileImage: (@pattern) =>
+    pattern = @ctx.createPattern @pattern, 'repeat'
+    @setOpacity @opacity
+    @setBlendMode @blendmode
     @ctx.fillStyle = pattern
     @ctx.fillRect 0, 0, @el.width, @el.height
 
@@ -31,19 +63,19 @@ class Canvas
    * > array : the arguments for drawImage
   ###
 
-  scaleImage: (image, dest) =>
+  scaleImage: (@image, dest) =>
 
     # Arguments for context.drawImage()
     args = [
-      image,
+      @image,
       null, null, null, null,
       0, 0, dest.width, dest.height
     ]
 
     # The original dimensions of the image
     source =
-      width:  image.width,
-      height: image.height
+      width:  @image.width,
+      height: @image.height
 
     # Resizing ratio
     ratio =
