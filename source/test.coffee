@@ -36,8 +36,8 @@ document.addEventListener 'DOMContentLoaded', ->
 
   patternHolder = document.querySelector '.patterns'
 
-  for filename in patterns
-    path = "subtlepatterns/#{ filename }"
+  for filename in patterns.light
+    path = "patterns/light/#{ filename }"
 
     div = document.createElement 'div'
     div.className = 'pattern'
